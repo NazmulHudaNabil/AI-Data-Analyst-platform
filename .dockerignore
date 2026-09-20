@@ -1,0 +1,27 @@
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.env
+
+# git
+.git
+.gitignore
+
+# Data & Output folders (keep container stateless unless mounted)
+data/
+output/
+visualizations/
+scratch/
+*.png
+*.jpg
+*.csv
+*.json
+!evaluation/test_cases.json

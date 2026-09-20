@@ -1,0 +1,84 @@
+Schema: public
+
+
+Table: categories
+  - Column: categoryid, Data Type: integer
+  - Column: categoryname, Data Type: character varying
+  - Column: description, Data Type: text
+  - Sample Data:
+    (1, 'Beverages', 'Soft drinks, coffees, teas, beers, and ales')
+    (2, 'Condiments', 'Sweet and savory sauces, relishes, spreads, and seasonings')
+    (3, 'Confections', 'Desserts, candies, and sweet breads')
+    (4, 'Dairy Products', 'Cheeses')
+    (5, 'Grains & Cereals', 'Breads, crackers, pasta, and cereal')
+
+Table: products
+  - Column: productid, Data Type: integer
+  - Column: unitprice, Data Type: numeric
+  - Column: discontinued, Data Type: integer
+  - Column: categoryid, Data Type: integer
+  - Column: productname, Data Type: character varying
+  - Column: quantityperunit, Data Type: character varying
+  - Sample Data:
+    (1, 'Chai', '10 boxes x 20 bags', Decimal('18'), 0, 1)
+    (2, 'Chang', '24 - 12 oz bottles', Decimal('19'), 0, 1)
+    (3, 'Aniseed Syrup', '12 - 550 ml bottles', Decimal('10'), 0, 2)
+    (4, "Chef Anton's Cajun Seasoning", '48 - 6 oz jars', Decimal('22'), 0, 2)
+    (5, "Chef Anton's Gumbo Mix", '36 boxes', Decimal('21.35'), 1, 2)
+
+Table: customers
+  - Column: customerid, Data Type: character varying
+  - Column: companyname, Data Type: character varying
+  - Column: contactname, Data Type: character varying
+  - Column: contacttitle, Data Type: character varying
+  - Column: city, Data Type: character varying
+  - Column: country, Data Type: character varying
+  - Sample Data:
+    ('ALFKI', 'Alfreds Futterkiste', 'Maria Anders', 'Sales Representative', 'Berlin', 'Germany')
+    ('ANATR', 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Owner', 'Mexico City', 'Mexico')
+    ('ANTON', 'Antonio Moreno Taquería', 'Antonio Moreno', 'Owner', 'Mexico City', 'Mexico')
+    ('AROUT', 'Around the Horn', 'Thomas Hardy', 'Sales Representative', 'London', 'UK')
+    ('BERGS', 'Berglunds snabbköp', 'Christina Berglund', 'Order Administrator', 'Luleå', 'Sweden')
+
+Table: orders
+  - Column: freight, Data Type: numeric
+  - Column: orderid, Data Type: integer
+  - Column: employeeid, Data Type: integer
+  - Column: orderdate, Data Type: date
+  - Column: requireddate, Data Type: date
+  - Column: shippeddate, Data Type: date
+  - Column: shipperid, Data Type: integer
+  - Column: customerid, Data Type: character varying
+  - Sample Data:
+    (10248, 'VINET', 5, datetime.date(2013, 7, 4), datetime.date(2013, 8, 1), datetime.date(2013, 7, 16), 3, Decimal('32.38'))
+    (10249, 'TOMSP', 6, datetime.date(2013, 7, 5), datetime.date(2013, 8, 16), datetime.date(2013, 7, 10), 1, Decimal('11.61'))
+    (10250, 'HANAR', 4, datetime.date(2013, 7, 8), datetime.date(2013, 8, 5), datetime.date(2013, 7, 12), 2, Decimal('65.83'))
+    (10251, 'VICTE', 3, datetime.date(2013, 7, 8), datetime.date(2013, 8, 5), datetime.date(2013, 7, 15), 1, Decimal('41.34'))
+    (10252, 'SUPRD', 4, datetime.date(2013, 7, 9), datetime.date(2013, 8, 6), datetime.date(2013, 7, 11), 2, Decimal('51.3'))
+
+Table: employees
+  - Column: employeeid, Data Type: integer
+  - Column: reportsto, Data Type: integer
+  - Column: employeename, Data Type: character varying
+  - Column: title, Data Type: character varying
+  - Column: city, Data Type: character varying
+  - Column: country, Data Type: character varying
+  - Sample Data:
+    (1, 'Nancy Davolio', 'Sales Representative', 'New York', 'USA', 8)
+    (2, 'Andrew Fuller', 'Vice President Sales', 'New York', 'USA', None)
+    (3, 'Janet Leverling', 'Sales Representative', 'New York', 'USA', 8)
+    (4, 'Margaret Peacock', 'Sales Representative', 'New York', 'USA', 8)
+    (5, 'Steven Buchanan', 'Sales Manager', 'London', 'UK', 2)
+
+Table: order_details
+  - Column: orderid, Data Type: integer
+  - Column: productid, Data Type: integer
+  - Column: unitprice, Data Type: numeric
+  - Column: quantity, Data Type: integer
+  - Column: discount, Data Type: numeric
+  - Sample Data:
+    (10248, 11, Decimal('14'), 12, Decimal('0'))
+    (10248, 42, Decimal('9.8'), 10, Decimal('0'))
+    (10248, 72, Decimal('34.8'), 5, Decimal('0'))
+    (10249, 14, Decimal('18.6'), 9, Decimal('0'))
+    (10249, 51, Decimal('42.4'), 40, Decimal('0'))

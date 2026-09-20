@@ -1,0 +1,32 @@
+[
+    {
+        "id": "1",
+        "input": "Extract pokemon data from https://pokeapi.co/api/v2/pokemon and load it into PostgreSQL",
+        "expected_agent": "etl",
+        "agent_to_test": "supervisor"
+    },
+    {
+        "id": "2",
+        "input": "Show me a bar chart of the top 5 highest selling products",
+        "expected_agent": "visualization",
+        "agent_to_test": "supervisor"
+    },
+    {
+        "id": "3",
+        "input": "Check the data quality of data/employees.csv",
+        "expected_agent": "data_quality",
+        "agent_to_test": "supervisor"
+    },
+    {
+        "id": "4",
+        "input": "What is the total number of customers?",
+        "expected_sql": "SELECT COUNT(*) FROM customers;",
+        "agent_to_test": "sql"
+    },
+    {
+        "id": "5",
+        "input": "List the top 3 cities with the most customers.",
+        "expected_sql": "SELECT city, COUNT(customer_id) FROM customers GROUP BY city ORDER BY COUNT(customer_id) DESC LIMIT 3;",
+        "agent_to_test": "sql"
+    }
+]

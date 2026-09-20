@@ -1,0 +1,19 @@
+[project]
+name = "ai-data-analyst-platform"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dotenv>=0.9.9",
+    "langchain>=1.4.1",
+    "langchain-google-genai>=4.4.0",
+    "langgraph>=1.2.11",
+    "pandas>=3.0.5",
+    "psycopg2>=2.9.13",
+    "matplotlib>=3.8.0",
+    "fastapi>=0.111.0",
+    "uvicorn>=0.30.0",
+    "sqlalchemy>=2.0.0",
+    "requests>=2.31.0",
+]
