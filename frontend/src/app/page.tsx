@@ -94,6 +94,9 @@ export default function Home() {
         setNewConnName("");
         setNewConnString("");
         fetchConnections();
+      } else {
+        const errText = await res.text();
+        alert(`Failed to save! API URL: ${API_BASE_URL}\nStatus: ${res.status}\nError: ${errText}`);
       }
     } catch (e: any) {
       console.error("Failed to add connection", e);
