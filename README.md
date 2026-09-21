@@ -76,8 +76,8 @@ The frontend is optimized for zero-config deployment on Vercel.
 3. Add the `NEXT_PUBLIC_API_URL` environment variable pointing to your live backend (e.g., `https://your-api.onrender.com`).
 
 ### Backend (Render / AWS)
-The backend is fully dockerized and ready to be deployed to Render, AWS ECS, or DigitalOcean.
-1. Connect your repository to Render (Web Service).
+The backend is fully dockerized and ready to be deployed to Render, Heroku, AWS ECS, or DigitalOcean.
+1. Connect your repository to heroku (Web Service).
 2. Set the Root Directory to `backend` and environment to Docker.
 3. Add your `GEMINI_API_KEY` as an environment variable.
 
