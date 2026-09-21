@@ -24,8 +24,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code
 COPY . .
 
-# Expose the API port
+# Expose the API port (for local development)
 EXPOSE 8000
 
 # Start the FastAPI application using uvicorn
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+# Use ${PORT:-8000} to allow Heroku to dynamically assign the port, while defaulting to 8000 locally
+CMD ["sh", "-c", "uvicorn api:app --host 0.0.0.0 --port ${PORT:-8000}"]
