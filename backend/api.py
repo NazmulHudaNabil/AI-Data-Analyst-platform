@@ -82,18 +82,20 @@ def health_check():
     return {"status": "ok", "message": "AI Data Analyst API is online and ready."}
 
 
+from fastapi import Header, Depends
+
 # ---------------------------------------------------------
 # Connections Endpoints
 # ---------------------------------------------------------
 @app.post("/api/v1/connections", response_model=ConnectionResponse)
-def add_connection(req: ConnectionRequest):
+def add_connection(req: ConnectionRequest, x_user_id: str = Header(default="anonymous")):
     """
-    Save a new database connection string (e.g., Neon DB).
-    Later on, agents could dynamically switch to this connection string when querying.
+    Save a new database connection string tied to a user session.
     """
     conn_id = str(uuid.uuid4())
     db_connections[conn_id] = {
         "id": conn_id,
+        "user_id": x_user_id,
         "name": req.name,
         "connection_string": req.connection_string
     }
@@ -102,15 +104,20 @@ def add_connection(req: ConnectionRequest):
 
 
 @app.get("/api/v1/connections", response_model=List[ConnectionResponse])
-def get_connections():
-    """Retrieve all stored database connections."""
-    return list(db_connections.values())
+def get_connections(x_user_id: str = Header(default="anonymous")):
+    """Retrieve database connections specific to this user session."""
+    user_conns = [conn for conn in db_connections.values() if conn.get("user_id", "anonymous") == x_user_id]
+    return user_conns
 
 
 @app.delete("/api/v1/connections/{conn_id}")
-def delete_connection(conn_id: str):
-    """Delete a stored database connection by ID."""
+def delete_connection(conn_id: str, x_user_id: str = Header(default="anonymous")):
+    """Delete a stored database connection by ID if it belongs to the user."""
     if conn_id in db_connections:
+        # Check if the connection belongs to the user
+        if db_connections[conn_id].get("user_id", "anonymous") != x_user_id:
+            raise HTTPException(status_code=403, detail="Not authorized to delete this connection")
+            
         del db_connections[conn_id]
         save_connections(db_connections)
         return {"message": f"Connection {conn_id} deleted successfully."}

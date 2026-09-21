@@ -57,8 +57,19 @@ export default function Home() {
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
 
   useEffect(() => {
+    // Generate or retrieve anonymous user session ID
+    if (!localStorage.getItem("ai_analyst_user_id")) {
+      localStorage.setItem("ai_analyst_user_id", crypto.randomUUID());
+    }
     fetchConnections();
   }, []);
+
+  const getHeaders = () => {
+    return {
+      "Content-Type": "application/json",
+      "X-User-ID": localStorage.getItem("ai_analyst_user_id") || "anonymous"
+    };
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -68,7 +79,9 @@ export default function Home() {
 
   const fetchConnections = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/v1/connections`);
+      const res = await fetch(`${API_BASE_URL}/api/v1/connections`, {
+        headers: { "X-User-ID": localStorage.getItem("ai_analyst_user_id") || "anonymous" }
+      });
       if (res.ok) {
         const data = await res.json();
         setConnections(data);
@@ -86,7 +99,7 @@ export default function Home() {
     try {
       const res = await fetch(`${API_BASE_URL}/api/v1/connections`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getHeaders(),
         body: JSON.stringify({ name: newConnName, connection_string: newConnString }),
       });
       if (res.ok) {
@@ -106,12 +119,15 @@ export default function Home() {
 
   const handleDeleteConnection = async (id: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/v1/connections/${id}`, { method: "DELETE" });
+      const res = await fetch(`${API_BASE_URL}/api/v1/connections/${id}`, { 
+        method: "DELETE",
+        headers: { "X-User-ID": localStorage.getItem("ai_analyst_user_id") || "anonymous" }
+      });
       if (res.ok) {
         if (activeConnectionId === id) setActiveConnectionId("");
         fetchConnections();
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error("Failed to delete connection", e);
     }
   };
