@@ -73,13 +73,15 @@ This project is fully configured for continuous integration and deployment (CI/C
 The frontend is optimized for zero-config deployment on Vercel.
 1. Connect your repository to Vercel.
 2. Set the Root Directory to `frontend`.
-3. Add the `NEXT_PUBLIC_API_URL` environment variable pointing to your live backend (e.g., `https://your-api.onrender.com`).
+3. Add the `NEXT_PUBLIC_API_URL` environment variable pointing to your live backend (e.g., `https://your-api.herokuapp.com`).
 
-### Backend (Render / AWS)
-The backend is fully dockerized and ready to be deployed to Render, Heroku, AWS ECS, or DigitalOcean.
-1. Connect your repository to heroku (Web Service).
-2. Set the Root Directory to `backend` and environment to Docker.
-3. Add your `GEMINI_API_KEY` as an environment variable.
+### Backend (Heroku)
+The backend is fully dockerized and deployed automatically to Heroku via GitHub Actions.
+1. Create a new App in your Heroku Dashboard.
+2. In your GitHub repository, add two secrets (`Settings` -> `Secrets and variables` -> `Actions`):
+   - `HEROKU_API_KEY`: Your Heroku API key (found in Account Settings).
+   - `HEROKU_APP_NAME`: The exact name of your Heroku App.
+3. In Heroku, go to your App's `Settings` -> `Reveal Config Vars` and add your `GEMINI_API_KEY`.
 
 ## 🧪 Testing
 
