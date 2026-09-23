@@ -13,8 +13,10 @@ class DatabaseUtils:
             self.connection = None
 
     def schema_details(self, schema_name):
-        schema_info_context = ""
+        if not self.connection:
+            return "Error: Database connection is not established. Please check your connection string or ensure the database is accessible."
 
+        schema_info_context = ""
         connetion = self.connection
         cursor = connetion.cursor()
 
@@ -49,14 +51,18 @@ class DatabaseUtils:
             schema_info_context = f"Error retrieving schema details: {e}\n"
 
         finally:
-            if cursor:
+            if 'cursor' in locals() and cursor:
                 cursor.close()
-            if connetion:
+            if 'connetion' in locals() and connetion:
                 connetion.close()
 
         return schema_info_context
 
     def execute_sql(self, sql_query):
+        if not self.connection:
+            print("Error: Database connection is not established.")
+            return None
+
         connetion = self.connection
         cursor = connetion.cursor()
 
@@ -69,9 +75,9 @@ class DatabaseUtils:
             print(f"Error executing SQL query: {e}")
             return None
         finally:
-            if cursor:
+            if 'cursor' in locals() and cursor:
                 cursor.close()
-            if connetion:
+            if 'connetion' in locals() and connetion:
                 connetion.close()
 
 

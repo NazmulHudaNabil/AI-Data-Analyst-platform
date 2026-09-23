@@ -45,11 +45,11 @@ def prompt_query_context(state:SqlAgentSchema):
         conn_details = state.db_connection_string
     else:
         conn_details = {
-            "host": os.environ['host'],
-            "port": os.environ['port'],
-            "user": os.environ['user'],
-            "password": os.environ['password'],
-            "dbname": os.environ['database']
+            "host": os.environ.get('host', ''),
+            "port": os.environ.get('port', ''),
+            "user": os.environ.get('user', ''),
+            "password": os.environ.get('password', ''),
+            "dbname": os.environ.get('database', '')
         }
 
     obj = DatabaseUtils(conn_details)
@@ -151,11 +151,11 @@ def execute_sql_query(state:SqlAgentSchema):
         conn_details = state.db_connection_string
     else:
         conn_details = {
-            "host": os.environ['host'],
-            "port": os.environ['port'],
-            "user": os.environ['user'],
-            "password": os.environ['password'],
-            "dbname": os.environ['database']
+            "host": os.environ.get('host', ''),
+            "port": os.environ.get('port', ''),
+            "user": os.environ.get('user', ''),
+            "password": os.environ.get('password', ''),
+            "dbname": os.environ.get('database', '')
         }
 
     obj = DatabaseUtils(conn_details)
